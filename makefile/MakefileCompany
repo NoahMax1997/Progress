@@ -1,0 +1,19 @@
+#!/bin/bash
+SHELL := /bin/bash
+BASE_PATH := ../../../base
+COMM_PATH := ../../../common
+INC_PATH := $(BASE_PATH) $(COMM_PATH)/comm $(COMM_PATH)/algorithm $(COMM_PATH)/tuple_comm ./bussiness ./frame ./output
+SRC_FILES := $(COMM_PATH)/comm/*.cpp $(COMM_PATH)/algorithm/*.cpp $(COMM_PATH)/tuple_comm/*.cpp ./bussiness/*.cpp ./bussiness/*.cc ./frame/*.cpp ./output/*.cpp
+LIB_PATH := $(BASE_PATH)/lib
+
+project.targets += event_center_new_proj
+project.extra_warning := -Wno-write-strings -fpermissive
+project.optimize_flags := -std=c++11
+event_center_new_proj.path := ../bin
+event_center_new_proj.name := event_center_new
+event_center_new_proj.defines := TIXML_USE_STL _UTF8_CODE_ _ZKNEW_
+event_center_new_proj.sources := $(wildcard $(SRC_FILES))
+event_center_new_proj.includes := ${INC_PATH}
+event_center_new_proj.ldadd := $(LIB_PATH)/libzookeeper_mt.a $(LIB_PATH)/libEncode.a $(LIB_PATH)/libtshpsdk.a $(LIB_PATH)/libSvrPub.a $(LIB_PATH)/libWtseBase.a $(LIB_PATH)/libjsoncpp.a $(LIB_PATH)/libzkutil_new.a -pthread -lcurl /usr/local/lib/libprotobuf.a
+
+include $(BASE_PATH)/Generic.mak
